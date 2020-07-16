@@ -9,23 +9,55 @@ public class GameScript : MonoBehaviour
     public Button Shoot;
     private bool Win, CanClick = false;
     private bool OnceCalled = true;
-    private float Delay, CountPlayerDelay, ReverseDelay = 1;
+    private float Delay, CountPlayerDelay, ReverseDelay = 0.0f;
     public void BackToMenu()
     {
         SceneManager.LoadScene(0);
     }
     private void Start()
     {
-        Shoot.interactable = true;
-        Image.SetActive(true);
-        infoPanel.SetActive(false);
+        LoadLevel(MainMenu.s_LvlToLoad);
+    }
+    private void LoadLevel(int value)
+    {
         Win = false;
         CanClick = false;
         OnceCalled = true;
-        CountPlayerDelay = 0.0f;
+        Shoot.GetComponent<Button>().enabled = true;
         text.text = "Prepare";
         Delay = Random.Range(2.0f, 5.0f);
-        ReverseDelay = Random.Range(0.5f, 1.0f);
+        if (value > 0 && value < 5)
+        {
+            ReverseDelay = Random.Range(1.0f, 1.5f);
+        }
+        else if (value > 4 && value < 9)
+        {
+            ReverseDelay = Random.Range(0.75f, 1.25f);
+        }
+        else if (value > 8 && value < 13)
+        {
+            ReverseDelay = Random.Range(0.5f, 1.0f);
+        }
+        else if (value > 12)
+        {
+            ReverseDelay = Random.Range(0.3f, 0.7f);
+        }
+        else if (value == -1)
+        {
+            ReverseDelay = Random.Range(0.9f, 1.3f);
+        }
+        else if (value == -2)
+        {
+            ReverseDelay = Random.Range(0.35f, 0.85f);
+        }
+        else if (value == -3)
+        {
+            ReverseDelay = Random.Range(0.25f, 0.4f);
+        }
+        else if (value == -4)
+        {
+            ReverseDelay = Random.Range(0.15f, 0.3f);
+        }
     }
     private void Update()
     {
@@ -42,10 +74,9 @@ public class GameScript : MonoBehaviour
             ReverseDelay -= Time.deltaTime;
             if (ReverseDelay <= 0 && !Win)
             {
-                Shoot.interactable = false;
-                Image.SetActive(false);
+                Shoot.GetComponent<Button>().enabled = false;
                 infoPanel.SetActive(true);
-                infoPanel.GetComponentInChildren<Text>().text = "U lose";
+                infoPanel.GetComponentInChildren<Text>().text = "You lost";
             }
         }
     }
@@ -63,39 +94,36 @@ public class GameScript : MonoBehaviour
     }
     private void TheEnd()
     {
-        Image.SetActive(false);
-        Shoot.interactable = false;
+        Shoot.GetComponent<Button>().enabled = false;
         if (Win)
         {
             infoPanel.SetActive(true);
-            infoPanel.GetComponentInChildren<Text>().text = $"U Win + Delay:{CountPlayerDelay}";
-            if (MainMenu.Score > CountPlayerDelay || MainMenu.Score == 0)
+            infoPanel.GetComponentInChildren<Text>().text = $"You Won\n Your Delay:{CountPlayerDelay}";
+            if (PlayerPrefs.GetFloat(MainMenu.s_LvlToLoad.ToString()) > CountPlayerDelay ||
+                PlayerPrefs.GetFloat(MainMenu.s_LvlToLoad.ToString()) == 0)
             {
-                MainMenu.Score = CountPlayerDelay;
+                PlayerPrefs.SetFloat(MainMenu.s_LvlToLoad.ToString(), CountPlayerDelay);
+            }
+            if (MainMenu.s_Score > CountPlayerDelay || MainMenu.s_Score == 0)
+            {
+                MainMenu.s_Score = CountPlayerDelay;
                 Save();
             }
         }
         else
         {
             infoPanel.SetActive(true);
-            infoPanel.GetComponentInChildren<Text>().text = "U Lose";
+            infoPanel.GetComponentInChildren<Text>().text = "You Lost";
         }
     }
     public void Refresh()
     {
-        Shoot.interactable = true;
-        Image.SetActive(true);
-        infoPanel.SetActive(false);
-        Win = false;
-        CanClick = false;
-        OnceCalled = true;
         CountPlayerDelay = 0.0f;
-        text.text = "Prepare";
-        Delay = Random.Range(2.0f, 5.0f);
-        ReverseDelay = Random.Range(1.0f, 2.0f);
+        infoPanel.SetActive(false);
+        LoadLevel(MainMenu.s_LvlToLoad);
     }
     private void Save()
     {
-        PlayerPrefs.SetFloat("Score", MainMenu.Score);
+        PlayerPrefs.SetFloat("Score", MainMenu.s_Score);
     }
 }

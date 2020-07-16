@@ -4,23 +4,56 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    public Text Scoretxt;
-    public static float Score;
-    public void StartGame()
+    public GameObject LvlButtons;
+    public Button LvlButton;
+    public Text ScoreTxt;
+    public static float s_Score;
+    public static int s_LvlToLoad;
+    public void StartGame(int value)
     {
+        s_LvlToLoad = value;
         SceneManager.LoadScene(1);
     }
     private void Start()
     {
+        int nameLvl = 1;
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                Button but = Instantiate(LvlButton, new Vector2(-300 + (200 * j), 330 - (200 * i)),
+                    Quaternion.identity);
+                but.gameObject.transform.SetParent(LvlButtons.transform, false);
+                but.name = nameLvl.ToString();
+                but.onClick.AddListener(delegate { StartGame(System.Convert.ToInt32(but.name)); });
+                Text txt = but.GetComponentInChildren<Text>();
+                if (PlayerPrefs.HasKey(nameLvl.ToString()))
+                {
+                    txt.text = $"{nameLvl}\n\n{PlayerPrefs.GetFloat(nameLvl.ToString()):f3}";
+                }
+                else
+                {
+                    if (nameLvl == 1 || PlayerPrefs.HasKey((nameLvl - 1).ToString()))
+                    {
+                        txt.text = $"{nameLvl}\n\n";
+                    }
+                    else
+                    {
+                        txt.text = $"{nameLvl}\n\n";
+                        but.interactable = false;
+                    }
+                }
+                nameLvl++;
+            }
+        }
         try
         {
-            Score = PlayerPrefs.GetFloat("Score");
+            s_Score = PlayerPrefs.GetFloat("Score");
         }
         catch { }
-        if (!Score.Equals(0))
+        if (!s_Score.Equals(0))
         {
-
-            Scoretxt.text = $"Best:{Score}";
+            ScoreTxt.text = $"Best:{s_Score}";
         }
     }
 }
