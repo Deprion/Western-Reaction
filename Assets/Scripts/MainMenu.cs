@@ -14,6 +14,10 @@ public class MainMenu : MonoBehaviour
         s_LvlToLoad = value;
         SceneManager.LoadScene(1);
     }
+    public void Town()
+    {
+        SceneManager.LoadScene(2);
+    }
     private void Start()
     {
         int nameLvl = 1;
