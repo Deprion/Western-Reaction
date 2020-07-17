@@ -28,35 +28,35 @@ public class GameScript : MonoBehaviour
         Delay = Random.Range(2.0f, 5.0f);
         if (value > 0 && value < 5)
         {
-            ReverseDelay = Random.Range(1.0f, 1.5f);
+            ReverseDelay = Random.Range(0.7f, 0.9f);
         }
         else if (value > 4 && value < 9)
         {
-            ReverseDelay = Random.Range(0.75f, 1.25f);
+            ReverseDelay = Random.Range(0.4f, 0.6f);
         }
         else if (value > 8 && value < 13)
         {
-            ReverseDelay = Random.Range(0.5f, 1.0f);
+            ReverseDelay = Random.Range(0.2f, 0.35f);
         }
         else if (value > 12)
         {
-            ReverseDelay = Random.Range(0.3f, 0.7f);
+            ReverseDelay = Random.Range(0.05f, 0.2f);
         }
         else if (value == -1)
         {
-            ReverseDelay = Random.Range(0.9f, 1.3f);
+            ReverseDelay = Random.Range(0.8f, 1.2f);
         }
         else if (value == -2)
         {
-            ReverseDelay = Random.Range(0.35f, 0.85f);
+            ReverseDelay = Random.Range(0.35f, 0.75f);
         }
         else if (value == -3)
         {
-            ReverseDelay = Random.Range(0.25f, 0.4f);
+            ReverseDelay = Random.Range(0.15f, 0.35f);
         }
         else if (value == -4)
         {
-            ReverseDelay = Random.Range(0.15f, 0.3f);
+            ReverseDelay = Random.Range(0.03f, 0.125f);
         }
     }
     private void Update()
