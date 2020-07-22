@@ -7,8 +7,11 @@ public class Music : MonoBehaviour
     private AudioClip lastClip;
     private void Start()
     {
-        lastClip = music[Random.Range(0, music.Length - 1)];
-        audioSource.PlayOneShot(lastClip);
+        if (PlayerPrefs.GetInt("Music") == 0)
+        {
+            lastClip = music[Random.Range(0, music.Length - 1)];
+            audioSource.PlayOneShot(lastClip);
+        }
     }
     private void Awake()
     {
@@ -21,7 +24,11 @@ public class Music : MonoBehaviour
     }
     private void Update()
     {
-        if (!audioSource.isPlaying)
+        if (PlayerPrefs.GetInt("Music") == 1)
+        {
+            audioSource.Stop();
+        }
+        if (!audioSource.isPlaying && PlayerPrefs.GetInt("Music") == 0)
         {
             audioSource.PlayOneShot(RandomAudio());
         }

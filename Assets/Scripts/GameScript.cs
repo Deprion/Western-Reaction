@@ -10,6 +10,7 @@ public class GameScript : MonoBehaviour
     private bool Win, CanClick = false;
     private bool OnceCalled = true;
     private float Delay, CountPlayerDelay, ReverseDelay = 0.0f;
+    private int reward = 0;
     public void BackToMenu()
     {
         SceneManager.LoadScene(0);
@@ -33,14 +34,26 @@ public class GameScript : MonoBehaviour
         else if (value > 4 && value < 9)
         {
             ReverseDelay = Random.Range(0.4f, 0.6f);
+            if (ChanceForMoney(65))
+            {
+                reward = 4;
+            }
         }
         else if (value > 8 && value < 13)
         {
             ReverseDelay = Random.Range(0.2f, 0.35f);
+            if (ChanceForMoney(75))
+            {
+                reward = 6;
+            }
         }
         else if (value > 12)
         {
             ReverseDelay = Random.Range(0.05f, 0.2f);
+            if (ChanceForMoney(80))
+            {
+                reward = 8;
+            }
         }
         else if (value == -1)
         {
@@ -49,14 +62,26 @@ public class GameScript : MonoBehaviour
         else if (value == -2)
         {
             ReverseDelay = Random.Range(0.35f, 0.75f);
+            if (ChanceForMoney(65))
+            {
+                reward = 2;
+            }
         }
         else if (value == -3)
         {
             ReverseDelay = Random.Range(0.15f, 0.35f);
+            if (ChanceForMoney(75)) 
+            {
+                reward = Random.Range(3, 6);
+            }
         }
         else if (value == -4)
         {
             ReverseDelay = Random.Range(0.03f, 0.125f);
+            if (ChanceForMoney(80))
+            {
+                reward = Random.Range(6, 11);
+            }
         }
     }
     private void Update()
@@ -80,6 +105,17 @@ public class GameScript : MonoBehaviour
             }
         }
     }
+    public bool ChanceForMoney(int val)
+    {
+        if (Random.Range(0, 101) > val)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     public void Click()
     {
         if (CanClick)
@@ -98,7 +134,8 @@ public class GameScript : MonoBehaviour
         if (Win)
         {
             infoPanel.SetActive(true);
-            infoPanel.GetComponentInChildren<Text>().text = $"You Won\n Your Delay:{CountPlayerDelay}";
+            infoPanel.GetComponentInChildren<Text>().text = $"You Won\nYour Delay:{CountPlayerDelay}" +
+                $"\nYou Found:{reward}$";
             if (PlayerPrefs.GetFloat(MainMenu.s_LvlToLoad.ToString()) > CountPlayerDelay ||
                 PlayerPrefs.GetFloat(MainMenu.s_LvlToLoad.ToString()) == 0)
             {
@@ -109,6 +146,8 @@ public class GameScript : MonoBehaviour
                 MainMenu.s_Score = CountPlayerDelay;
                 Save();
             }
+            MainMenu.s_Money += reward;
+            PlayerPrefs.SetInt("Money", MainMenu.s_Money);
         }
         else
         {
