@@ -8,14 +8,16 @@ public class Town : MonoBehaviour
     public Text CurrentMoney;
     private void Start()
     {
+        CurrentMoney.text = $"Balance: {MainMenu.s_Money}";
         if (MainMenu.s_Casino)
         {
             casinoObj.SetActive(true);
-            CurrentMoney.text = $"Balance: {MainMenu.s_Money}";
+            shopObj.SetActive(false);
         }
         else
         {
             shopObj.SetActive(true);
+            casinoObj.SetActive(false);
         }
     }
     public void BackToMenu()

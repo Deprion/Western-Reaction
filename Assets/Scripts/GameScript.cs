@@ -29,56 +29,56 @@ public class GameScript : MonoBehaviour
         Delay = Random.Range(2.0f, 5.0f);
         if (value > 0 && value < 5)
         {
-            ReverseDelay = Random.Range(0.7f, 0.9f);
+            ReverseDelay = Random.Range(0.7f, 0.9f) + MainMenu.s_AdditionalDelay;
         }
         else if (value > 4 && value < 9)
         {
-            ReverseDelay = Random.Range(0.4f, 0.6f);
-            if (ChanceForMoney(65))
+            ReverseDelay = Random.Range(0.4f, 0.6f) + MainMenu.s_AdditionalDelay;
+            if (ChanceForMoney(65 - MainMenu.s_AddtitionalChance))
             {
                 reward = 4;
             }
         }
         else if (value > 8 && value < 13)
         {
-            ReverseDelay = Random.Range(0.2f, 0.35f);
-            if (ChanceForMoney(75))
+            ReverseDelay = Random.Range(0.2f, 0.35f) + MainMenu.s_AdditionalDelay;
+            if (ChanceForMoney(75 - MainMenu.s_AddtitionalChance))
             {
                 reward = 6;
             }
         }
         else if (value > 12)
         {
-            ReverseDelay = Random.Range(0.05f, 0.2f);
-            if (ChanceForMoney(80))
+            ReverseDelay = Random.Range(0.05f, 0.2f) + MainMenu.s_AdditionalDelay;
+            if (ChanceForMoney(80 - MainMenu.s_AddtitionalChance))
             {
                 reward = 8;
             }
         }
         else if (value == -1)
         {
-            ReverseDelay = Random.Range(0.8f, 1.2f);
+            ReverseDelay = Random.Range(0.8f, 1.2f) + MainMenu.s_AdditionalDelay;
         }
         else if (value == -2)
         {
-            ReverseDelay = Random.Range(0.35f, 0.75f);
-            if (ChanceForMoney(65))
+            ReverseDelay = Random.Range(0.35f, 0.75f) + MainMenu.s_AdditionalDelay;
+            if (ChanceForMoney(65 - MainMenu.s_AddtitionalChance))
             {
                 reward = 2;
             }
         }
         else if (value == -3)
         {
-            ReverseDelay = Random.Range(0.15f, 0.35f);
-            if (ChanceForMoney(75)) 
+            ReverseDelay = Random.Range(0.15f, 0.35f) + MainMenu.s_AdditionalDelay;
+            if (ChanceForMoney(75 - MainMenu.s_AddtitionalChance)) 
             {
                 reward = Random.Range(3, 6);
             }
         }
         else if (value == -4)
         {
-            ReverseDelay = Random.Range(0.03f, 0.125f);
-            if (ChanceForMoney(80))
+            ReverseDelay = Random.Range(0.03f, 0.125f) + MainMenu.s_AdditionalDelay;
+            if (ChanceForMoney(80 - MainMenu.s_AddtitionalChance))
             {
                 reward = Random.Range(6, 11);
             }

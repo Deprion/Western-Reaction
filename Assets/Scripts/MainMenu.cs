@@ -1,5 +1,4 @@
-﻿using System.Dynamic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -11,8 +10,12 @@ public class MainMenu : MonoBehaviour
     public Sprite[] ImageArr;
     public static float s_Score;
     public static int s_Money = 10;
+    public static float s_AdditionalDelay;
+    public static int s_AddtitionalChance;
     public static bool s_Casino;
     public static int s_LvlToLoad;
+    public static bool[] s_Ranch = new bool[4];
+    public static bool[] s_Upgrades = new bool[4];
     public void StartGame(int value)
     {
         s_LvlToLoad = value;
@@ -25,6 +28,7 @@ public class MainMenu : MonoBehaviour
     }
     private void Start()
     {
+        DataScript.LoadData();
         if (PlayerPrefs.GetInt("Music") == 0)
         {
             Audio.GetComponent<Image>().sprite = ImageArr[0];
@@ -67,6 +71,9 @@ public class MainMenu : MonoBehaviour
         {
             s_Score = PlayerPrefs.GetFloat("Score");
             s_Money = PlayerPrefs.GetInt("Money");
+            s_Money = 6666;
+            s_AdditionalDelay = PlayerPrefs.GetFloat("Delay");
+            s_AddtitionalChance = PlayerPrefs.GetInt("Chance");
         }
         catch { }
         if (!s_Score.Equals(0))

@@ -71,8 +71,16 @@ public class Roulette : MonoBehaviour
     {
         if (Max == true)
         {
-            currentBet = MainMenu.s_Money;
-            CurrentBetText.text = currentBet.ToString();
+            if (MainMenu.s_Money >= 10)
+            {
+                currentBet = MainMenu.s_Money;
+                CurrentBetText.text = currentBet.ToString();
+            }
+            else
+            {
+                currentBet = 10;
+                CurrentBetText.text = currentBet.ToString();
+            }
         }
         else
         {
