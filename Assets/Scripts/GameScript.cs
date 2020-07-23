@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class GameScript : MonoBehaviour
 {
     public Text text;
-    public GameObject infoPanel, Image;
+    public GameObject infoPanel, Sun;
     public Button Shoot;
     private bool Win, CanClick = false;
     private bool OnceCalled = true;
@@ -18,6 +18,7 @@ public class GameScript : MonoBehaviour
     private void Start()
     {
         LoadLevel(MainMenu.s_LvlToLoad);
+        Sun.transform.position = RandomPos();
     }
     private void LoadLevel(int value)
     {
@@ -114,6 +115,22 @@ public class GameScript : MonoBehaviour
         else
         {
             return false;
+        }
+    }
+    public Vector2 RandomPos()
+    {
+        int x = Random.Range(0, 3);
+        if (x == 0)
+        {
+            return new Vector2(-240, 800);
+        }
+        else if (x == 1)
+        {
+            return new Vector2(0, 790);
+        }
+        else
+        {
+            return new Vector2(380, 550);
         }
     }
     public void Click()

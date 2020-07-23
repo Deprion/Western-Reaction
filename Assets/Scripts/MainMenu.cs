@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    public GameObject LvlButtons;
+    public GameObject LvlButtons, Ranch;
     public Button LvlButton, Audio;
     public Text ScoreTxt;
     public Sprite[] ImageArr;
@@ -26,6 +26,10 @@ public class MainMenu : MonoBehaviour
         s_Casino = casino;
         SceneManager.LoadScene(2);
     }
+    public void RanchScene()
+    {
+        SceneManager.LoadScene(3);
+    }
     private void Start()
     {
         DataScript.LoadData();
@@ -36,6 +40,10 @@ public class MainMenu : MonoBehaviour
         else
         {
             Audio.GetComponent<Image>().sprite = ImageArr[1];
+        }
+        if (s_Ranch[0] == true)
+        {
+            Ranch.SetActive(true);
         }
         int nameLvl = 1;
         for (int i = 0; i < 4; i++)
@@ -71,7 +79,6 @@ public class MainMenu : MonoBehaviour
         {
             s_Score = PlayerPrefs.GetFloat("Score");
             s_Money = PlayerPrefs.GetInt("Money");
-            s_Money = 6666;
             s_AdditionalDelay = PlayerPrefs.GetFloat("Delay");
             s_AddtitionalChance = PlayerPrefs.GetInt("Chance");
         }

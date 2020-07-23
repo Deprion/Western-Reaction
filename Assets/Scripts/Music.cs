@@ -3,6 +3,7 @@
 public class Music : MonoBehaviour
 {
     public AudioClip[] music;
+    public AudioClip[] sounds;
     public AudioSource audioSource;
     private AudioClip lastClip;
     private void Start()
