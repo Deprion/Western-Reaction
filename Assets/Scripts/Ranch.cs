@@ -1,11 +1,17 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Ranch : MonoBehaviour
 {
     public GameObject Fence, Canvas, Tree, Cow;
-    public Music MusicScript;
+    public Sprite TreeSprite;
+    private Music MusicScript;
     private void Start()
     {
+        MusicScript = GameObject.FindGameObjectWithTag("music").GetComponent<Music>();
+        StartCoroutine(Moo());
         Fence.SetActive(true);
         if (MainMenu.s_Ranch[2] == true)
         {
@@ -19,6 +25,8 @@ public class Ranch : MonoBehaviour
         {
             var tree = Instantiate(Tree, new Vector2(251, 39), Quaternion.identity);
             tree.transform.SetParent(Canvas.transform, false);
+            tree.GetComponent<RectTransform>().sizeDelta = new Vector2(300,300);
+            tree.GetComponent<Image>().sprite = TreeSprite;
             tree.SetActive(true);
             Tree.SetActive(true);
         }
@@ -32,8 +40,17 @@ public class Ranch : MonoBehaviour
         }
         MusicScript = GameObject.FindGameObjectWithTag("music").GetComponent<Music>();
     }
-    public void Moo()
+    public void BackToMenu()
     {
-        MusicScript.audioSource.PlayOneShot(MusicScript.sounds[0]);
+        SceneManager.LoadScene(0);
+    }
+    IEnumerator Moo()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(2.5f);
+            MusicScript.audioSource.PlayOneShot(MusicScript.sounds[0]);
+            yield return new WaitForSeconds(16.0f);
+        }
     }
 }

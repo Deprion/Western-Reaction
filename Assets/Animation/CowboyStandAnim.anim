@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Tumbleweed
+  m_Name: CowboyStandAnim
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,7 +20,8 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: cd294eeebd0f40b4aad07a20a83d10a1, type: 3}
+      value: {fileID: 7421452353678987458, guid: 9032df72dee543d4eace5331365b30a6,
+        type: 3}
     attribute: m_Sprite
     path: 
     classID: 114
@@ -40,7 +41,7 @@ AnimationClip:
       customType: 0
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: cd294eeebd0f40b4aad07a20a83d10a1, type: 3}
+    - {fileID: 7421452353678987458, guid: 9032df72dee543d4eace5331365b30a6, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class GameScript : MonoBehaviour
 {
     public Text text;
-    public GameObject infoPanel, Sun;
+    public GameObject infoPanel, Sun, Cowboy;
     public Button Shoot;
     private bool Win, CanClick = false;
     private bool OnceCalled = true;
@@ -18,7 +18,7 @@ public class GameScript : MonoBehaviour
     private void Start()
     {
         LoadLevel(MainMenu.s_LvlToLoad);
-        Sun.transform.position = RandomPos();
+        Sun.GetComponent<RectTransform>().anchoredPosition = RandomPos();
     }
     private void LoadLevel(int value)
     {
@@ -96,6 +96,7 @@ public class GameScript : MonoBehaviour
         }
         if (Delay <= 0)
         {
+            Cowboy.GetComponent<Animator>().SetBool("Stand", true);
             CountPlayerDelay += Time.deltaTime;
             ReverseDelay -= Time.deltaTime;
             if (ReverseDelay <= 0 && !Win)
@@ -175,6 +176,7 @@ public class GameScript : MonoBehaviour
     public void Refresh()
     {
         CountPlayerDelay = 0.0f;
+        Cowboy.GetComponent<Animator>().SetBool("Stand", false);
         infoPanel.SetActive(false);
         LoadLevel(MainMenu.s_LvlToLoad);
     }
