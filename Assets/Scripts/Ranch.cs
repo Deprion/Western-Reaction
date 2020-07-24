@@ -38,7 +38,6 @@ public class Ranch : MonoBehaviour
         {
             Cow.SetActive(true);
         }
-        MusicScript = GameObject.FindGameObjectWithTag("music").GetComponent<Music>();
     }
     public void BackToMenu()
     {
