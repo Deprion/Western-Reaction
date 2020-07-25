@@ -157,7 +157,7 @@ public class GameScript : MonoBehaviour
                 Next.SetActive(true);
                 Again.SetActive(false);
             }
-            if (PlayerPrefs.HasKey(MainMenu.s_LvlToLoad.ToString()))
+            if (PlayerPrefs.HasKey(MainMenu.s_LvlToLoad.ToString()) || MainMenu.s_LvlToLoad < 0)
             {
                 infoPanel.GetComponentInChildren<Text>().text = $"You Won\nYour Delay:{CountPlayerDelay}" +
                     $"\nYou Found:{reward}$";
