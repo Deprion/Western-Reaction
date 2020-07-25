@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class GameScript : MonoBehaviour
 {
     public Text text;
-    public GameObject infoPanel, Sun, Cowboy;
+    public GameObject infoPanel, Sun, Cowboy, Next, Again;
     public Button Shoot;
     private bool Win, CanClick = false;
     private bool OnceCalled = true;
@@ -43,7 +43,7 @@ public class GameScript : MonoBehaviour
         else if (value > 8 && value < 13)
         {
             ReverseDelay = Random.Range(0.2f, 0.35f) + MainMenu.s_AdditionalDelay;
-            if (ChanceForMoney(75 - MainMenu.s_AddtitionalChance))
+            if (ChanceForMoney(60 - MainMenu.s_AddtitionalChance))
             {
                 reward = 6;
             }
@@ -51,7 +51,7 @@ public class GameScript : MonoBehaviour
         else if (value > 12)
         {
             ReverseDelay = Random.Range(0.05f, 0.2f) + MainMenu.s_AdditionalDelay;
-            if (ChanceForMoney(80 - MainMenu.s_AddtitionalChance))
+            if (ChanceForMoney(50 - MainMenu.s_AddtitionalChance))
             {
                 reward = 8;
             }
@@ -71,7 +71,7 @@ public class GameScript : MonoBehaviour
         else if (value == -3)
         {
             ReverseDelay = Random.Range(0.15f, 0.35f) + MainMenu.s_AdditionalDelay;
-            if (ChanceForMoney(75 - MainMenu.s_AddtitionalChance)) 
+            if (ChanceForMoney(60 - MainMenu.s_AddtitionalChance)) 
             {
                 reward = Random.Range(3, 6);
             }
@@ -79,7 +79,7 @@ public class GameScript : MonoBehaviour
         else if (value == -4)
         {
             ReverseDelay = Random.Range(0.03f, 0.125f) + MainMenu.s_AdditionalDelay;
-            if (ChanceForMoney(80 - MainMenu.s_AddtitionalChance))
+            if (ChanceForMoney(40 - MainMenu.s_AddtitionalChance))
             {
                 reward = Random.Range(6, 11);
             }
@@ -152,8 +152,23 @@ public class GameScript : MonoBehaviour
         if (Win)
         {
             infoPanel.SetActive(true);
-            infoPanel.GetComponentInChildren<Text>().text = $"You Won\nYour Delay:{CountPlayerDelay}" +
-                $"\nYou Found:{reward}$";
+            if (MainMenu.s_LvlToLoad > 0 && MainMenu.s_LvlToLoad < 16)
+            {
+                Next.SetActive(true);
+                Again.SetActive(false);
+            }
+            if (PlayerPrefs.HasKey(MainMenu.s_LvlToLoad.ToString()))
+            {
+                infoPanel.GetComponentInChildren<Text>().text = $"You Won\nYour Delay:{CountPlayerDelay}" +
+                    $"\nYou Found:{reward}$";
+                MainMenu.s_Money += reward;
+            }
+            else
+            {
+                infoPanel.GetComponentInChildren<Text>().text = $"You Won\nYour Delay:{CountPlayerDelay}" +
+                    $"\nYou Found:{reward}$\nYour Reward:8$";
+                MainMenu.s_Money += reward + 8;
+            }
             if (PlayerPrefs.GetFloat(MainMenu.s_LvlToLoad.ToString()) > CountPlayerDelay ||
                 PlayerPrefs.GetFloat(MainMenu.s_LvlToLoad.ToString()) == 0)
             {
@@ -164,7 +179,6 @@ public class GameScript : MonoBehaviour
                 MainMenu.s_Score = CountPlayerDelay;
                 Save();
             }
-            MainMenu.s_Money += reward;
             PlayerPrefs.SetInt("Money", MainMenu.s_Money);
         }
         else
@@ -173,12 +187,21 @@ public class GameScript : MonoBehaviour
             infoPanel.GetComponentInChildren<Text>().text = "You Lost";
         }
     }
-    public void Refresh()
+    public void Refresh(bool NextLvl)
     {
+        Next.SetActive(false);
+        Again.SetActive(true);
         CountPlayerDelay = 0.0f;
         Cowboy.GetComponent<Animator>().SetBool("Stand", false);
         infoPanel.SetActive(false);
-        LoadLevel(MainMenu.s_LvlToLoad);
+        if (NextLvl)
+        {
+            LoadLevel(MainMenu.s_LvlToLoad += 1);
+        }
+        else
+        {
+            LoadLevel(MainMenu.s_LvlToLoad);
+        }
     }
     private void Save()
     {
