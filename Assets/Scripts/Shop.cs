@@ -19,6 +19,11 @@ public class Shop : MonoBehaviour
                 ButtonUpgrade[i].interactable = false;
             }
         }
+        if (!MainMenu.s_Ranch[0])
+        {
+            ButtonShop[1].interactable = false;
+            ButtonShop[2].interactable = false;
+        }
         if (!MainMenu.s_Ranch[2])
         {
             ButtonShop[3].interactable = false;
@@ -56,6 +61,7 @@ public class Shop : MonoBehaviour
             ButtonShop[3].interactable = false;
         }
         CurrentMoney.text = $"Balance: {MainMenu.s_Money}";
+        PlayerPrefs.SetInt("Money", MainMenu.s_Money);
         DataScript.SaveData();
     }
     public void BuyUpgrade(int num)
@@ -94,6 +100,7 @@ public class Shop : MonoBehaviour
             PlayerPrefs.SetInt("Chance", MainMenu.s_AddtitionalChance);
         }
         CurrentMoney.text = $"Balance: {MainMenu.s_Money}";
+        PlayerPrefs.SetInt("Money", MainMenu.s_Money);
         DataScript.SaveData();
     }
 }
