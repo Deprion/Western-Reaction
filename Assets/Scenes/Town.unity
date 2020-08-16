@@ -216,7 +216,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &56213700
 RectTransform:
   m_ObjectHideFlags: 0
@@ -865,7 +865,7 @@ MonoBehaviour:
   CurrentBetText: {fileID: 1343065207}
   RouletteHolderObj: {fileID: 1677540383}
   isStoped: 1
-  currentNum: 0
+  currentBet: 10
 --- !u!114 &289646349
 MonoBehaviour:
   m_ObjectHideFlags: 0
