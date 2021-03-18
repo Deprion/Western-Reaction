@@ -17,7 +17,7 @@ public class DataScript : MonoBehaviour
         Data data = new Data
         {
             RanchData = MainMenu.s_Ranch,
-            UpgradesData = MainMenu.s_Upgrades
+            UpgradesData = MainMenu.s_Upgrades,
         };
         bf.Serialize(file, data);
         file.Close();

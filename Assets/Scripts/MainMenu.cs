@@ -6,7 +6,7 @@ public class MainMenu : MonoBehaviour
 {
     public GameObject LvlButtons, Ranch;
     public Button LvlButton, Audio;
-    public Text ScoreTxt;
+    public Text ScoreTxt, TextInfo;
     public Sprite[] ImageArr;
     public static float s_Score;
     public static int s_Money = 10;
@@ -32,7 +32,7 @@ public class MainMenu : MonoBehaviour
     }
     private void Start()
     {
-        DataScript.LoadData();
+        TextInfo.text += "\n" + SystemInfo.graphicsShaderLevel +  "\n" + SystemInfo.graphicsMemorySize;
         if (PlayerPrefs.GetInt("Music") == 0)
         {
             Audio.GetComponent<Image>().sprite = ImageArr[0];

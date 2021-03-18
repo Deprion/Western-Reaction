@@ -63,6 +63,7 @@ public class Shop : MonoBehaviour
         CurrentMoney.text = $"Balance: {MainMenu.s_Money}";
         PlayerPrefs.SetInt("Money", MainMenu.s_Money);
         DataScript.SaveData();
+        Start();
     }
     public void BuyUpgrade(int num)
     {
@@ -102,5 +103,6 @@ public class Shop : MonoBehaviour
         CurrentMoney.text = $"Balance: {MainMenu.s_Money}";
         PlayerPrefs.SetInt("Money", MainMenu.s_Money);
         DataScript.SaveData();
+        Start();
     }
 }

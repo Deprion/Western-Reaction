@@ -2541,7 +2541,7 @@ MonoBehaviour:
     m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -2549,7 +2549,8 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: "Tap on screen when \"Shoot\" for win. \nWith small chance you can find
     money.\nIn shop you can buy some upgrades which up your chances for loot and
-    there you can find other stuff. \nBar - watch ad for money"
+    there you can find other stuff. \nBar - watch ad for money\n\n\n\n\n\nSpecial
+    Thanks: WildWileWing"
 --- !u!222 &684299505
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4983,6 +4984,7 @@ MonoBehaviour:
   LvlButton: {fileID: 1728261655}
   Audio: {fileID: 606984345}
   ScoreTxt: {fileID: 1721828230}
+  TextInfo: {fileID: 684299504}
   ImageArr:
   - {fileID: 21300000, guid: ee005ed9aa4a3a4429d03426c88e51f4, type: 3}
   - {fileID: 21300000, guid: bbb15d94a5b0dd74699575fefc95bad7, type: 3}

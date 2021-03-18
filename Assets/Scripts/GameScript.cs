@@ -134,7 +134,7 @@ public class GameScript : MonoBehaviour
             return new Vector2(380, 550);
         }
     }
-    public void Click()
+    public void OnMouseDown()
     {
         if (CanClick)
         {
