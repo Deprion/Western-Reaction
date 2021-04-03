@@ -32,6 +32,7 @@ public class MainMenu : MonoBehaviour
     }
     private void Start()
     {
+        DataScript.LoadData();
         TextInfo.text += "\n" + SystemInfo.graphicsShaderLevel +  "\n" + SystemInfo.graphicsMemorySize;
         if (PlayerPrefs.GetInt("Music") == 0)
         {

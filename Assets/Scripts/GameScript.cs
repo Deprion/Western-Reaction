@@ -6,10 +6,10 @@ public class GameScript : MonoBehaviour
 {
     public Text text;
     public GameObject infoPanel, Sun, Cowboy, Next, Again;
-    public Button Shoot;
-    private bool Win, CanClick = false;
-    private bool OnceCalled = true;
-    private float Delay, CountPlayerDelay, ReverseDelay = 0.0f;
+    public Button ShootBtn;
+    private bool win, canClick = false;
+    private bool onceCalled = true;
+    private float delay, countPlayerDelay, reverseDelay = 0.0f;
     private int reward = 0;
     public void BackToMenu()
     {
@@ -18,23 +18,23 @@ public class GameScript : MonoBehaviour
     private void Start()
     {
         LoadLevel(MainMenu.s_LvlToLoad);
-        Sun.GetComponent<RectTransform>().anchoredPosition = RandomPos();
     }
     private void LoadLevel(int value)
     {
-        Win = false;
-        CanClick = false;
-        OnceCalled = true;
-        Shoot.GetComponent<Button>().enabled = true;
+        Sun.GetComponent<RectTransform>().anchoredPosition = RandomPos();
+        win = false;
+        canClick = false;
+        onceCalled = true;
+        ShootBtn.GetComponent<BoxCollider2D>().enabled = true;
         text.text = "Prepare";
-        Delay = Random.Range(2.0f, 5.0f);
+        delay = Random.Range(2.0f, 5.0f);
         if (value > 0 && value < 5)
         {
-            ReverseDelay = Random.Range(0.7f, 0.9f) + MainMenu.s_AdditionalDelay;
+            reverseDelay = Random.Range(0.7f, 0.9f) + MainMenu.s_AdditionalDelay;
         }
         else if (value > 4 && value < 9)
         {
-            ReverseDelay = Random.Range(0.4f, 0.6f) + MainMenu.s_AdditionalDelay;
+            reverseDelay = Random.Range(0.4f, 0.6f) + MainMenu.s_AdditionalDelay;
             if (ChanceForMoney(65 - MainMenu.s_AddtitionalChance))
             {
                 reward = 4;
@@ -42,7 +42,7 @@ public class GameScript : MonoBehaviour
         }
         else if (value > 8 && value < 13)
         {
-            ReverseDelay = Random.Range(0.2f, 0.35f) + MainMenu.s_AdditionalDelay;
+            reverseDelay = Random.Range(0.2f, 0.35f) + MainMenu.s_AdditionalDelay;
             if (ChanceForMoney(60 - MainMenu.s_AddtitionalChance))
             {
                 reward = 6;
@@ -50,7 +50,7 @@ public class GameScript : MonoBehaviour
         }
         else if (value > 12)
         {
-            ReverseDelay = Random.Range(0.05f, 0.2f) + MainMenu.s_AdditionalDelay;
+            reverseDelay = Random.Range(0.05f, 0.2f) + MainMenu.s_AdditionalDelay;
             if (ChanceForMoney(50 - MainMenu.s_AddtitionalChance))
             {
                 reward = 8;
@@ -58,11 +58,11 @@ public class GameScript : MonoBehaviour
         }
         else if (value == -1)
         {
-            ReverseDelay = Random.Range(0.8f, 1.2f) + MainMenu.s_AdditionalDelay;
+            reverseDelay = Random.Range(0.8f, 1.2f) + MainMenu.s_AdditionalDelay;
         }
         else if (value == -2)
         {
-            ReverseDelay = Random.Range(0.35f, 0.75f) + MainMenu.s_AdditionalDelay;
+            reverseDelay = Random.Range(0.35f, 0.75f) + MainMenu.s_AdditionalDelay;
             if (ChanceForMoney(65 - MainMenu.s_AddtitionalChance))
             {
                 reward = 2;
@@ -70,7 +70,7 @@ public class GameScript : MonoBehaviour
         }
         else if (value == -3)
         {
-            ReverseDelay = Random.Range(0.15f, 0.35f) + MainMenu.s_AdditionalDelay;
+            reverseDelay = Random.Range(0.15f, 0.35f) + MainMenu.s_AdditionalDelay;
             if (ChanceForMoney(60 - MainMenu.s_AddtitionalChance)) 
             {
                 reward = Random.Range(3, 6);
@@ -78,7 +78,7 @@ public class GameScript : MonoBehaviour
         }
         else if (value == -4)
         {
-            ReverseDelay = Random.Range(0.03f, 0.125f) + MainMenu.s_AdditionalDelay;
+            reverseDelay = Random.Range(0.03f, 0.125f) + MainMenu.s_AdditionalDelay;
             if (ChanceForMoney(40 - MainMenu.s_AddtitionalChance))
             {
                 reward = Random.Range(6, 11);
@@ -87,21 +87,21 @@ public class GameScript : MonoBehaviour
     }
     private void Update()
     {
-        Delay -= Time.deltaTime;
-        if (Delay <= 0 && OnceCalled)
+        delay -= Time.deltaTime;
+        if (delay <= 0 && onceCalled)
         {
             text.text = "Shoot";
-            OnceCalled = false;
-            CanClick = true;
+            onceCalled = false;
+            canClick = true;
         }
-        if (Delay <= 0)
+        if (delay <= 0)
         {
             Cowboy.GetComponent<Animator>().SetBool("Stand", true);
-            CountPlayerDelay += Time.deltaTime;
-            ReverseDelay -= Time.deltaTime;
-            if (ReverseDelay <= 0 && !Win)
+            countPlayerDelay += Time.deltaTime;
+            reverseDelay -= Time.deltaTime;
+            if (reverseDelay <= 0 && !win)
             {
-                Shoot.GetComponent<Button>().enabled = false;
+                ShootBtn.GetComponent<BoxCollider2D>().enabled = false;
                 infoPanel.SetActive(true);
                 infoPanel.GetComponentInChildren<Text>().text = "You lost";
             }
@@ -134,11 +134,11 @@ public class GameScript : MonoBehaviour
             return new Vector2(380, 550);
         }
     }
-    public void OnMouseDown()
+    public void Shoot()
     {
-        if (CanClick)
+        if (canClick)
         {
-            Win = true;
+            win = true;
             TheEnd();
         }
         else
@@ -148,8 +148,8 @@ public class GameScript : MonoBehaviour
     }
     private void TheEnd()
     {
-        Shoot.GetComponent<Button>().enabled = false;
-        if (Win)
+        ShootBtn.GetComponent<BoxCollider2D>().enabled = false;
+        if (win)
         {
             infoPanel.SetActive(true);
             if (MainMenu.s_LvlToLoad > 0 && MainMenu.s_LvlToLoad < 16)
@@ -159,24 +159,24 @@ public class GameScript : MonoBehaviour
             }
             if (PlayerPrefs.HasKey(MainMenu.s_LvlToLoad.ToString()) || MainMenu.s_LvlToLoad < 0)
             {
-                infoPanel.GetComponentInChildren<Text>().text = $"You Won\nYour Delay:{CountPlayerDelay}" +
+                infoPanel.GetComponentInChildren<Text>().text = $"You Won\nYour Delay:{countPlayerDelay}" +
                     $"\nYou Found:{reward}$";
                 MainMenu.s_Money += reward;
             }
             else
             {
-                infoPanel.GetComponentInChildren<Text>().text = $"You Won\nYour Delay:{CountPlayerDelay}" +
+                infoPanel.GetComponentInChildren<Text>().text = $"You Won\nYour Delay:{countPlayerDelay}" +
                     $"\nYou Found:{reward}$\nYour Reward:8$";
                 MainMenu.s_Money += reward + 8;
             }
-            if (PlayerPrefs.GetFloat(MainMenu.s_LvlToLoad.ToString()) > CountPlayerDelay ||
+            if (PlayerPrefs.GetFloat(MainMenu.s_LvlToLoad.ToString()) > countPlayerDelay ||
                 PlayerPrefs.GetFloat(MainMenu.s_LvlToLoad.ToString()) == 0)
             {
-                PlayerPrefs.SetFloat(MainMenu.s_LvlToLoad.ToString(), CountPlayerDelay);
+                PlayerPrefs.SetFloat(MainMenu.s_LvlToLoad.ToString(), countPlayerDelay);
             }
-            if (MainMenu.s_Score > CountPlayerDelay || MainMenu.s_Score == 0)
+            if (MainMenu.s_Score > countPlayerDelay || MainMenu.s_Score == 0)
             {
-                MainMenu.s_Score = CountPlayerDelay;
+                MainMenu.s_Score = countPlayerDelay;
                 Save();
             }
             PlayerPrefs.SetInt("Money", MainMenu.s_Money);
@@ -184,14 +184,14 @@ public class GameScript : MonoBehaviour
         else
         {
             infoPanel.SetActive(true);
-            infoPanel.GetComponentInChildren<Text>().text = "You Lost";
+            infoPanel.GetComponentInChildren<Text>().text = "You lost";
         }
     }
     public void Refresh(bool NextLvl)
     {
         Next.SetActive(false);
         Again.SetActive(true);
-        CountPlayerDelay = 0.0f;
+        countPlayerDelay = 0.0f;
         Cowboy.GetComponent<Animator>().SetBool("Stand", false);
         infoPanel.SetActive(false);
         if (NextLvl)
